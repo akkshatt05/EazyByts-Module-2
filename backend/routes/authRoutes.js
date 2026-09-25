@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcryptjs");
 
 const {
   registerUser,
@@ -6,7 +7,6 @@ const {
 } = require("../controllers/authController");
 
 const User = require("../models/User");
-const bcrypt = require("bcryptjs");
 
 const router = express.Router();
 
@@ -18,32 +18,32 @@ router.post("/reset-demo", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash("Akshat@123", 10);
 
-    const user = await User.findOneAndUpdate(
-      { email: "akshat@test.com" },
-      {
-        name: "Akshat Pandey",
-        password: hashedPassword,
-      },
-      { new: true }
-    );
+    let user = await User.findOne({
+      email: "akshat@test.com",
+    });
 
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "Demo account not found",
+    if (user) {
+      user.password = hashedPassword;
+      user.name = "Akshat Pandey";
+      await user.save();
+    } else {
+      user = await User.create({
+        name: "Akshat Pandey",
+        email: "akshat@test.com",
+        password: hashedPassword,
       });
     }
 
     res.json({
       success: true,
-      message: "Demo password reset successfully",
+      message: "Demo account ready",
     });
   } catch (error) {
-    console.error("Reset demo error:", error.message);
+    console.error("Reset demo error:", error);
 
     res.status(500).json({
       success: false,
-      message: "Server error",
+      message: error.message,
     });
   }
 });
