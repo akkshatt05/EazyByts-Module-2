@@ -8,7 +8,7 @@ function MarketNews() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = "http://localhost:5000";
+  const API_URL = "https://equix-backend.onrender.com";
 
   useEffect(() => {
     const loadNews = async () => {

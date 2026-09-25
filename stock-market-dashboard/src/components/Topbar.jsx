@@ -1,6 +1,15 @@
 import { Search, Bell, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 function Topbar() {
+  const [user] = useState(() => {
+    const savedUser = localStorage.getItem("equix-user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  const name = user?.name || "User";
+  const initial = name.charAt(0).toUpperCase();
+
   return (
     <header className="topbar">
       <div className="search-box">
@@ -32,10 +41,10 @@ function Topbar() {
         </button>
 
         <div className="profile">
-          <div className="profile-avatar">A</div>
+          <div className="profile-avatar">{initial}</div>
 
           <div className="profile-info">
-            <strong>Akshat Pandey</strong>
+            <strong>{name}</strong>
             <span>Keep Investing 🚀</span>
           </div>
 

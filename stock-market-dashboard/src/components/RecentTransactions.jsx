@@ -13,7 +13,7 @@ function RecentTransactions() {
 
   const [loading, setLoading] = useState(true);
 
-  const API_URL = "http://localhost:5000";
+  const API_URL = "https://equix-backend.onrender.com";
 
   const token =
     localStorage.getItem("equix-token");

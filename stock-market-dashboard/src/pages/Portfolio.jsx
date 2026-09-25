@@ -73,7 +73,7 @@ function Portfolio() {
 
   const token = localStorage.getItem("equix-token");
 
-  const API_URL = "http://localhost:5000";
+  const API_URL = "https://equix-backend.onrender.com";
 
   const loadPortfolio = async () => {
     if (!token) {

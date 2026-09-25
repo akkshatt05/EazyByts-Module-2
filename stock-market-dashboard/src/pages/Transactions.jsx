@@ -19,7 +19,7 @@ function Transactions() {
 
   const [error, setError] = useState("");
 
-  const API_URL = "http://localhost:5000";
+  const API_URL = "https://equix-backend.onrender.com";
 
   const token = localStorage.getItem("equix-token");
 
